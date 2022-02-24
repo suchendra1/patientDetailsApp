@@ -1,24 +1,25 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-function App() {
-  const [data, setData] = React.useState(null);
+import Header from './components/Header'
+import Login from './components/Login'
+// import Register from './components/Register'
+// import NewRecord from './components/NewRecord'
+// import ShowRecord from './components/ShowRecord'
+import NotFound from './components/NotFound'
 
-  React.useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
+import './App.css'
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{!data ? "Loading..." : data}</p>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <BrowserRouter>
+    <Header />
+    <Routes>
+      <Route exact path="/login" component={Login} />
+      {/* <Route path="/register" component={Register} />
+      <Route path="/newrecord" component={NewRecord} />
+      <Route path="/showrecord" component={ShowRecord} /> */}
+      <Route component={NotFound} />
+    </Routes>
+  </BrowserRouter>
+)
 
-export default App;
+export default App
