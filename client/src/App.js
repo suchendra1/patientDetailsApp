@@ -6,7 +6,7 @@ function App() {
   const [data, setData] = React.useState(null);
 
   React.useEffect(() => {
-    fetch("http://localhost:3001/api")
+    fetch("/api")
       .then((res) => res.json())
       .then((data) => setData(data.message));
   }, []);
