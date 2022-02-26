@@ -34,8 +34,9 @@ initializeDBAndServer();
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 // Handle GET requests to /api route
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from server!" });
+app.get("/login", (req, res) => {
+  const {memberid, password} = req.body;
+  const sql = `SELECT * FROM user WHERE memberid=="${memberid}";`;
 });
 
 // All other GET requests not handled before will return our React app
