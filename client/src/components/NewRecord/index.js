@@ -7,6 +7,7 @@ class NewRecord extends Component{
         ID:"",
         mobileNo:"",
         name:"",
+        date:"",
         BP:"",
         FBS:"",
         PPBS:"",
@@ -71,8 +72,13 @@ class NewRecord extends Component{
         this.setState({OtherSignificantNotes:event.target.value});
     }
 
+    onChangeDate = event => {
+        this.setState({date:event.target.value})
+    }
+
     render (){
-        const {ID, mobileNo, name, BP, RBS, FBS, PPBS, HbA1C, Urea, Creatinine, Microalbuminuria, Complaints, OtherSignificantNotes} = this.state;
+        const {ID, mobileNo, name, BP, RBS, FBS, PPBS, HbA1C, Urea, Creatinine, Microalbuminuria, Complaints, OtherSignificantNotes, date} = this.state;
+        console.log(date);
         return(
             <div className="newrecord-container">
                 <h2>Please enter your readings</h2>
@@ -82,6 +88,8 @@ class NewRecord extends Component{
                 <input className="input" type="text" id="mobile" placeholder="Mobile No" onChange={this.onChangeMobileNo} value={mobileNo}/>
                 <label className="label" htmlFor="id" >name</label>
                 <input className="input" type="text" id="name" placeholder="Name" onChange={this.onChangeName} value={name}/>
+                <label className="label" htmlFor="date">Date</label>
+                <input className="input" type="date" id="date" value={date} onChange={this.onChangeDate}/>
                 <label className="label" htmlFor="BP" >BP</label>
                 <input className="input" type="text" id="BP" placeholder="BP" onChange={this.onChangeBP} value={BP}/>
                 <label className="label" htmlFor="RBS" >RBS</label>
