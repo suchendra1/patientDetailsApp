@@ -1,0 +1,25 @@
+.container{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:10vw;
+}
+
+.label{
+    margin-top:10px;
+}
+
+.input{
+    height:4vh
+}
+
+.submit-button{
+    margin-top:20px;
+    background-color:#1a53ff;
+    align-self:center;
+    border-radius:13px;
+    width:70px;
+    height:40px;
+    color: white;
+    border:none;
+}

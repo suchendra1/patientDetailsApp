@@ -1,5 +1,7 @@
 import {Component} from "react"
 
+import './index.css'
+
 class Login extends Component{
     state={
         ID:"",
@@ -17,10 +19,12 @@ class Login extends Component{
     render (){
         return(
             <div className="container">
-                <label for="id" >ID</label>
-                <input type="text" id="id" placeholder="ID" onChange={this.onChangeID}/>
-                <label for="password" >ID</label>
-                <input type="password" id="password" placeholder="Password" onChange={this.onChangePassword}/>
+                <h2>Login</h2>
+                <label className="label" htmlFor="id" >ID</label>
+                <input className="input" type="text" id="id" placeholder="ID" onChange={this.onChangeID}/>
+                <label className="label" htmlFor="password" >Password</label>
+                <input className="input" type="password" id="password" placeholder="Password" onChange={this.onChangePassword}/>
+                <button type="button" className="submit-button" >Login</button>
             </div>
         )
     }

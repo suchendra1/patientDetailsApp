@@ -4,8 +4,8 @@ import './index.css'
 
 const Header = () => (
   <nav className="nav-header">
-    <div className="blog-container">
-      <h1 className="blog-title">Records</h1>
+    <div className="record-container">
+      <h1 className="record-title">SUITS</h1>
       <ul className="nav-menu">
         <Link className="nav-link" to="/">
           <li>Login</li>
