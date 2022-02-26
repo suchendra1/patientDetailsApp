@@ -18,8 +18,8 @@ class Login extends Component{
 
     render (){
         return(
-            <div className="container">
-                <h2>Login</h2>
+            <div className="login-container">
+                <h3>Login</h3>
                 <label className="label" htmlFor="id" >ID</label>
                 <input className="input" type="text" id="id" placeholder="ID" onChange={this.onChangeID}/>
                 <label className="label" htmlFor="password" >Password</label>

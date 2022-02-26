@@ -74,7 +74,7 @@ class NewRecord extends Component{
     render (){
         const {ID, mobileNo, name, BP, RBS, FBS, PPBS, HbA1C, Urea, Creatinine, Microalbuminuria, Complaints, OtherSignificantNotes} = this.state;
         return(
-            <div className="container">
+            <div className="newrecord-container">
                 <h2>Please enter your readings</h2>
                 <label className="label" htmlFor="id" >ID</label>
                 <input className="input" type="text" id="id" placeholder="ID" onChange={this.onChangeID} value={ID}/>
@@ -89,7 +89,7 @@ class NewRecord extends Component{
                 <label className="label" htmlFor="FBS" >FBS</label>
                 <input className="input" type="text" id="FBS" placeholder="FBS" onChange={this.onChangeFBS} value={FBS}/>
                 <label className="label" htmlFor="PPBS" >PPBS</label>
-                <input className="input" type="text" id="PPBS" placeholder="ID" onChange={this.onChangeID} value={PPBS}/>
+                <input className="input" type="text" id="PPBS" placeholder="PPBS" onChange={this.onChangeID} value={PPBS}/>
                 <label className="label" htmlFor="HbA1C" >HbA1C</label>
                 <input className="input" type="password" id="HbA1C" placeholder="HbA1C" onChange={this.onChangeHbA1C} value={HbA1C}/>
                 <label className="label" htmlFor="Urea" >Urea</label>

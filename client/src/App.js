@@ -10,16 +10,18 @@ import NotFound from './components/NotFound'
 import './App.css'
 
 const App = () => (
-  <BrowserRouter>
-    <Header />
-    <Routes>
-      <Route exact path="/" element={<Login/>} />
-      <Route path="/register" element={<Register/>} />
-      <Route path="/newrecord" element={<NewRecord/>} />
-      {/*<Route path="/showrecord" element={ShowRecord} /> */}
+  <div className="container">
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route exact path="/" element={<Login/>} />
+        <Route path="/register" element={<Register/>} />
+        <Route path="/newrecord" element={<NewRecord/>} />
+        {/*<Route path="/showrecord" element={ShowRecord} /> */}
       <Route component={NotFound} />
-    </Routes>
-  </BrowserRouter>
+      </Routes>
+    </BrowserRouter>
+  </div>
 )
 
 export default App

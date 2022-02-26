@@ -1,25 +1,29 @@
-.container{
+.login-container{
     display:flex;
     flex-direction:column;
     justify-content:center;
-    padding:10vw;
+    padding:10vh 0 10vh 10vw;
 }
 
 .label{
     margin-top:10px;
+    align-self:flex-start;
 }
 
 .input{
-    height:4vh
+    height:4vh;
+    align-self:flex-start;
+    width: 25vw;
 }
 
 .submit-button{
     margin-top:20px;
     background-color:#1a53ff;
-    align-self:center;
+    align-self:flex-start;
     border-radius:13px;
     width:70px;
     height:40px;
     color: white;
     border:none;
+    margin-left:9vw;
 }

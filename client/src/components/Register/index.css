@@ -1,5 +1,7 @@
-.record-container{
+.register-container{
     display:flex;
+    flex-direction:column;
+    padding:10vh 0vw 10vh 5vw;
 }
 
 .nav-menu{
