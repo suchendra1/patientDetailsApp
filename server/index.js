@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const sqlite3 = require("sqlite3");
+const {open} = require("sqlite");
 
 const app = express();
 
@@ -8,20 +9,26 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
-const createTable = () => {
-  console.log("create database table contacts");
-  db.run("CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT, password TEXT)",  insertData);
-  db.run("CREATE TABLE IF NOT EXISTS Details(id Integer PRIMARY KEY, mobile TEXT, name TEXT, BP TEXT, RBS TEXT, FBS TEXT, PPBS TEXT, HbA1C TEXT, Urea TEXT, Creatinine TEXT, Microalbuminuria TEXT, Complaints TEXT, OtherSignificantNotes TEXT");
-}
+const dbPath = path.join(__dirname, "patientDetail.sqlite3");
 
-let db = new sqlite3.Database("./patientDetails.sqlite3", (err) => { 
-  if (err) { 
-      console.log('Error when creating the database', err) 
-  } else { 
-      console.log('Database created!') 
-      createTable()
-  } 
-});
+let db = null;
+
+const initializeDBAndServer = async () => {
+  try {
+    db = await open({
+      filename: dbPath,
+      driver: sqlite3.Database,
+    });
+    app.listen(3000, () => {
+      console.log("Server Running at http://localhost:3000/");
+    });
+  } catch (e) {
+    console.log(`DB Error: ${e.message}`);
+    process.exit(1);
+  }
+};
+
+initializeDBAndServer();
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../client/build')));
