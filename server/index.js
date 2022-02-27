@@ -62,10 +62,18 @@ app.post("/register" , async (req, res)=>{
     res.send("User already exists");
   }
   else{
+    try{
     const sql = `INSERT INTO user (memberid, password) VALUES ("${memberid}","${password}");`;
     await db.run(sql);
     res.status(200);
     res.send("Success!!!");
+  }
+  catch(err){
+    console.log(err);
+    res.status(400);
+    res.send("Registration failed!");
+  }
+    
   }
 });
 
