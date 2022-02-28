@@ -22,7 +22,7 @@ Content-Type: application/json
 {
     "memberid":"admin",
     "name":"sai",
-    "date":"2022-02-15",
+    "date":"2022-02-16",
     "mobile":"1234",
     "bp":"12",
     "fbs":"123",
@@ -33,4 +33,12 @@ Content-Type: application/json
     "creatinine":"34",
     "complains":"no",
     "othersignificantnotes":""
+}
+
+###
+GET http://localhost:3005/showrecord
+Content-Type: application/json
+
+{
+    "memberid":"admin"
 }

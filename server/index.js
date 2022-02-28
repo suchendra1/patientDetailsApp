@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const sqlite3 = require("sqlite3");
+const jwt = require("jsonwebtoken");
 const {open} = require("sqlite");
 
 const app = express();
@@ -38,14 +39,14 @@ app.post("/login", async (req, res) => {
   const {memberid, password} = req.body;
   const sql = `SELECT * FROM user WHERE memberid=="${memberid}";`;
   const userdetail = await db.get(sql);
-  console.log(sql);
   if(userdetail === undefined){
     res.status(400);
     res.send("Invalid user");
   }
   else if(userdetail.password===password){
     res.status(200);
-    res.send("Password match");
+    const jwttoken = jwt.sign({memberid},"SUITS");
+    res.send(jwttoken);
   }
   else{
     res.status(400);
@@ -63,17 +64,16 @@ app.post("/register" , async (req, res)=>{
   }
   else{
     try{
-    const sql = `INSERT INTO user (memberid, password) VALUES ("${memberid}","${password}");`;
-    await db.run(sql);
-    res.status(200);
-    res.send("Success!!!");
-  }
-  catch(err){
-    console.log(err);
-    res.status(400);
-    res.send("Registration failed!");
-  }
-    
+      const sql = `INSERT INTO user (memberid, password) VALUES ("${memberid}","${password}");`;
+      await db.run(sql);
+      res.status(200);
+      res.send("Success!!!");
+    }
+    catch(err){
+      console.log(err);
+      res.status(400);
+      res.send("Registration failed!");
+    }
   }
 });
 
@@ -82,7 +82,6 @@ app.post("/newrecord", async (req,res)=>{
   const sql = `INSERT INTO medicalhistory (memberid,name,date,mobile,bp,fbs,ppbs,rbs,HbA1c,urea,creatinine,complaints,othersignificantnotes) VALUES ("${memberid}","${name}","${date}","${mobile}","${bp}","${fbs}","${ppbs}","${rbs}","${HbA1c}","${urea}","${creatinine}","${complains}","${othersignifantnotes}");`;
   try{
     await db.run(sql);
-    console.log(sql);
     res.status(200);
     res.send("Data added successfully!");
   }
@@ -90,6 +89,26 @@ app.post("/newrecord", async (req,res)=>{
     console.log(err);
     res.status(400);
     res.send("Unable to save data into database!");
+  }
+});
+
+app.get("/showrecord", async (req, res)=>{
+  const {memberid} = req.body;
+  const sql = `
+    SELECT * FROM medicalhistory
+    WHERE memberid == "${memberid}";`;
+  try{
+    const records = await db.all(sql);
+    res.status(200);
+    if(records.length===0)
+      res.send("No data to show");
+    else
+      res.send(records);
+  }
+  catch(err){
+    console.log(err);
+    res.status(400);
+    res.send("Unable to fetch data!");
   }
 });
 
