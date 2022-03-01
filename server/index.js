@@ -8,6 +8,15 @@ const app = express();
 
 app.use(express.json());
 
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions))
+
 const PORT = process.env.PORT || 3005;
 
 const dbPath = path.join(__dirname, "patientDetail.sqlite3");
@@ -34,9 +43,32 @@ initializeDBAndServer();
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
+const authenticateUser = async (req, res, next) => {
+  let jwtToken;
+  const authHeader = request.headers["authorization"];
+  if (authHeader !== undefined) {
+    jwtToken = authHeader.split(" ")[1];
+  }
+  if (jwtToken === undefined) {
+    response.status(401);
+    response.send("Invalid JWT Token");
+  } else {
+    jwt.verify(jwtToken, "SUITS", async (error, payload) => {
+      if (error) {
+        response.status(401);
+        response.send("Invalid JWT Token");
+      } else {
+        request.body.memberid = payload.memberid;
+        next();
+      }
+    });
+  }
+}
+
 // POST REQUEST TO LOGIN
 app.post("/login", async (req, res) => {
   const {memberid, password} = req.body;
+  console.log(memberid,password);
   const sql = `SELECT * FROM user WHERE memberid=="${memberid}";`;
   const userdetail = await db.get(sql);
   if(userdetail === undefined){
@@ -77,7 +109,7 @@ app.post("/register" , async (req, res)=>{
   }
 });
 
-app.post("/newrecord", async (req,res)=>{
+app.post("/newrecord",authenticateUser, async (req,res)=>{
   const {memberid, name,date,mobile,bp,fbs,ppbs,rbs,HbA1c,urea,creatinine,complains,othersignifantnotes} = req.body;
   const sql = `INSERT INTO medicalhistory (memberid,name,date,mobile,bp,fbs,ppbs,rbs,HbA1c,urea,creatinine,complaints,othersignificantnotes) VALUES ("${memberid}","${name}","${date}","${mobile}","${bp}","${fbs}","${ppbs}","${rbs}","${HbA1c}","${urea}","${creatinine}","${complains}","${othersignifantnotes}");`;
   try{
@@ -92,7 +124,7 @@ app.post("/newrecord", async (req,res)=>{
   }
 });
 
-app.get("/showrecord", async (req, res)=>{
+app.get("/showrecord",authenticateUser ,async (req, res)=>{
   const {memberid} = req.body;
   const sql = `
     SELECT * FROM medicalhistory

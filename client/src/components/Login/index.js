@@ -1,4 +1,5 @@
 import {Component} from "react"
+import Cookies from 'js-cookie'
 
 import './index.css'
 
@@ -13,7 +14,29 @@ class Login extends Component{
     }
 
     onChangePassword = event => {
-        this.setState({password:event.target.password})
+        this.setState({password:event.target.value})
+    }
+
+    onSubmitSuccess = jwtToken => {
+        const {history} = this.props;
+        Cookies.set('jwt_token', jwtToken, {expires: 30})
+        history.replace('/');
+    }
+
+    onClickLogin = async event => {
+        const {ID, password} = this.state
+        const userDetails = {memberid:ID, password}
+        const url = 'http://localhost:3005/login'
+        const options = {
+        method: 'POST',
+        body: userDetails,
+        }
+        console.log(options.body);
+        const response = await fetch(url, options)
+        const data = await response.json()
+        if (response.ok === true) {
+            this.onSubmitSuccess(data.jwt_token)
+        }
     }
 
     render (){
@@ -24,7 +47,7 @@ class Login extends Component{
                 <input className="input" type="text" id="id" placeholder="ID" onChange={this.onChangeID}/>
                 <label className="label" htmlFor="password" >Password</label>
                 <input className="input" type="password" id="password" placeholder="Password" onChange={this.onChangePassword}/>
-                <button type="button" className="submit-button" >Login</button>
+                <button type="button" className="submit-button" onClick={this.onClickLogin}>Login</button>
             </div>
         )
     }

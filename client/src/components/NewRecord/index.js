@@ -4,7 +4,6 @@ import './index.css'
 
 class NewRecord extends Component{
     state={
-        ID:"",
         mobileNo:"",
         name:"",
         date:"",
@@ -17,11 +16,8 @@ class NewRecord extends Component{
         Creatinine:"",
         Microalbuminuria:"",
         Complaints:"",
+        file:"",
         OtherSignificantNotes:""
-    }
-
-    onChangeID = (event) => {
-        this.setState({ID:event.target.value});
     }
 
     onChangeMobileNo = (event) => {
@@ -73,21 +69,24 @@ class NewRecord extends Component{
     }
 
     onChangeDate = event => {
-        this.setState({date:event.target.value})
+        this.setState({date:event.target.value});
+    }
+
+    onChangeFile = event => {
+        console.log(event.target.value);
+        this.setState({file:event.target.value});
     }
 
     render (){
-        const {ID, mobileNo, name, BP, RBS, FBS, PPBS, HbA1C, Urea, Creatinine, Microalbuminuria, Complaints, OtherSignificantNotes, date} = this.state;
+        const {mobileNo, name, BP, RBS, FBS, PPBS, HbA1C, Urea, Creatinine, Microalbuminuria, Complaints, OtherSignificantNotes, date, file} = this.state;
         console.log(date);
         return(
             <div className="newrecord-container">
                 <h2>Please enter your readings</h2>
-                <label className="label" htmlFor="id" >ID</label>
-                <input className="input" type="text" id="id" placeholder="ID" onChange={this.onChangeID} value={ID}/>
+                <label className="label" htmlFor="id" >Name</label>
+                <input className="input" type="text" id="name" placeholder="Name" onChange={this.onChangeName} value={name}/>
                 <label className="label" htmlFor="mobile" >Mobile No</label>
                 <input className="input" type="text" id="mobile" placeholder="Mobile No" onChange={this.onChangeMobileNo} value={mobileNo}/>
-                <label className="label" htmlFor="id" >name</label>
-                <input className="input" type="text" id="name" placeholder="Name" onChange={this.onChangeName} value={name}/>
                 <label className="label" htmlFor="date">Date</label>
                 <input className="input" type="date" id="date" value={date} onChange={this.onChangeDate}/>
                 <label className="label" htmlFor="BP" >BP</label>
@@ -106,6 +105,8 @@ class NewRecord extends Component{
                 <input className="input" type="text" id="creatinine" placeholder="Creatinine" onChange={this.onChangeCreatinine} value={Creatinine}/>
                 <label className="label" htmlFor="microalbuminuria" >Microalbuminuria</label>
                 <input className="input" type="text" id="microalbuminuria" placeholder="Microalbuminuria" onChange={this.onChangeMicroalbuminuria} value={Microalbuminuria}/>
+                <label className="label" htmlFor="file">prescription</label>
+                <input className="input" type="file" id="img" name="img" accept="image/*" onChange={this.onChangeFile} value={file}/>
                 <label className="label" htmlFor="Complaints" >Complaints</label>
                 <input className="input" type="text" id="complaints" placeholder="Complaints" onChange={this.onChangeComplaints} value={Complaints}/>
                 <label className="label" htmlFor="OtherSignificantNotes" >OtherSignificantNotes</label>
