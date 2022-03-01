@@ -68,7 +68,7 @@ const authenticateUser = async (req, res, next) => {
 // POST REQUEST TO LOGIN
 app.post("/login", async (req, res) => {
   const {memberid, password} = req.body;
-  console.log(memberid,password);
+  console.log(req.body);
   const sql = `SELECT * FROM user WHERE memberid=="${memberid}";`;
   const userdetail = await db.get(sql);
   if(userdetail === undefined){
