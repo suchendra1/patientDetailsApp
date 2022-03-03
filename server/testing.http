@@ -37,8 +37,3 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3005/showrecord
-Content-Type: application/json
-
-{
-    "memberid":"admin"
-}

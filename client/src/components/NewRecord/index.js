@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import {Component} from "react"
 
 import './index.css'
@@ -12,10 +13,10 @@ class NewRecord extends Component{
         PPBS:"",
         RBS:"",
         HbA1C:"",
-        Urea:"",
-        Creatinine:"",
-        Microalbuminuria:"",
-        Complaints:"",
+        urea:"",
+        creatinine:"",
+        microalbuminuria:"",
+        complaints:"",
         file:"",
         OtherSignificantNotes:""
     }
@@ -73,8 +74,24 @@ class NewRecord extends Component{
     }
 
     onChangeFile = event => {
-        console.log(event.target.value);
         this.setState({file:event.target.value});
+    }
+
+    onClickSubmit = async () => {
+        const {mobileNo,date,name,BP,FBS,PPBS,RBS,HbA1C,Urea,Creatinine,Microalbuminuria,Complaints,file,OtherSignificantNotes} = this.state
+        const medicalDetials = {mobileNo,date,name,BP,FBS,PPBS,RBS,HbA1C,Urea,Creatinine,Microalbuminuria,Complaints,OtherSignificantNotes};
+        const url = 'http://localhost:3005/newrecord'
+        const options = {
+            method: 'POST',
+            headers:{"Content-Type":"application/json","Authorization":"BEARER "+Cookies.get("jwt_token")},
+            body: JSON.stringify(medicalDetials),
+        }
+        const response = await fetch(url, options)
+        
+        const data = await response.json()
+        if (response.ok === true) {
+            this.onSubmitSuccess(data.jwt_token)
+        }
     }
 
     render (){
@@ -96,9 +113,9 @@ class NewRecord extends Component{
                 <label className="label" htmlFor="FBS" >FBS</label>
                 <input className="input" type="text" id="FBS" placeholder="FBS" onChange={this.onChangeFBS} value={FBS}/>
                 <label className="label" htmlFor="PPBS" >PPBS</label>
-                <input className="input" type="text" id="PPBS" placeholder="PPBS" onChange={this.onChangeID} value={PPBS}/>
+                <input className="input" type="text" id="PPBS" placeholder="PPBS" onChange={this.onChangePPBS} value={PPBS}/>
                 <label className="label" htmlFor="HbA1C" >HbA1C</label>
-                <input className="input" type="password" id="HbA1C" placeholder="HbA1C" onChange={this.onChangeHbA1C} value={HbA1C}/>
+                <input className="input" type="text" id="HbA1C" placeholder="HbA1C" onChange={this.onChangeHbA1C} value={HbA1C}/>
                 <label className="label" htmlFor="Urea" >Urea</label>
                 <input className="input" type="text" id="urea" placeholder="Urea" onChange={this.onChangeUrea} value={Urea}/>
                 <label className="label" htmlFor="Creatinine" >Creatinine</label>
@@ -111,7 +128,7 @@ class NewRecord extends Component{
                 <input className="input" type="text" id="complaints" placeholder="Complaints" onChange={this.onChangeComplaints} value={Complaints}/>
                 <label className="label" htmlFor="OtherSignificantNotes" >OtherSignificantNotes</label>
                 <input className="input" type="text" id="otherSignificantNotes" placeholder="OtherSignificantNotes" onChange={this.onChangeOtherSignificantNotes} value={OtherSignificantNotes}/>
-                <button type="button" className="submit-button" >Submit</button>
+                <button type="button" className="submit-button" onClick={this.onClickSubmit}>Submit</button>
             </div>
         )
     }

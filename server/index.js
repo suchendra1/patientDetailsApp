@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const {open} = require("sqlite");
 
 const app = express();
-
 app.use(express.json());
 
 const cors=require("cors");
@@ -45,20 +44,20 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 const authenticateUser = async (req, res, next) => {
   let jwtToken;
-  const authHeader = request.headers["authorization"];
+  const authHeader = req.headers["authorization"];
   if (authHeader !== undefined) {
     jwtToken = authHeader.split(" ")[1];
   }
   if (jwtToken === undefined) {
-    response.status(401);
-    response.send("Invalid JWT Token");
+    res.status(401);
+    res.send("Invalid JWT Token");
   } else {
     jwt.verify(jwtToken, "SUITS", async (error, payload) => {
       if (error) {
-        response.status(401);
-        response.send("Invalid JWT Token");
+        res.status(401);
+        res.send("Invalid JWT Token");
       } else {
-        request.body.memberid = payload.memberid;
+        req.body.memberid = payload.memberid;
         next();
       }
     });
@@ -78,7 +77,7 @@ app.post("/login", async (req, res) => {
   else if(userdetail.password===password){
     res.status(200);
     const jwttoken = jwt.sign({memberid},"SUITS");
-    res.send(jwttoken);
+    res.send({"jwt_token":jwttoken});
   }
   else{
     res.status(400);
@@ -110,8 +109,8 @@ app.post("/register" , async (req, res)=>{
 });
 
 app.post("/newrecord",authenticateUser, async (req,res)=>{
-  const {memberid, name,date,mobile,bp,fbs,ppbs,rbs,HbA1c,urea,creatinine,complains,othersignifantnotes} = req.body;
-  const sql = `INSERT INTO medicalhistory (memberid,name,date,mobile,bp,fbs,ppbs,rbs,HbA1c,urea,creatinine,complaints,othersignificantnotes) VALUES ("${memberid}","${name}","${date}","${mobile}","${bp}","${fbs}","${ppbs}","${rbs}","${HbA1c}","${urea}","${creatinine}","${complains}","${othersignifantnotes}");`;
+  const {memberid,name,date,mobile,BP,FBS,PPBS,RBS,HbA1C,urea,creatinine,complains,othersignifantnotes} = req.body;
+  const sql = `INSERT INTO medicalhistory (memberid,name,date,mobile,bp,fbs,ppbs,rbs,HbA1c,urea,creatinine,complaints,othersignificantnotes) VALUES ("${memberid}","${name}","${date}","${mobile}","${BP}","${FBS}","${PPBS}","${RBS}","${HbA1C}","${urea}","${creatinine}","${complains}","${othersignifantnotes}");`;
   try{
     await db.run(sql);
     res.status(200);
@@ -129,6 +128,7 @@ app.get("/showrecord",authenticateUser ,async (req, res)=>{
   const sql = `
     SELECT * FROM medicalhistory
     WHERE memberid == "${memberid}";`;
+  console.log(sql);
   try{
     const records = await db.all(sql);
     res.status(200);
@@ -136,6 +136,7 @@ app.get("/showrecord",authenticateUser ,async (req, res)=>{
       res.send("No data to show");
     else
       res.send(records);
+    console.log(records)
   }
   catch(err){
     console.log(err);

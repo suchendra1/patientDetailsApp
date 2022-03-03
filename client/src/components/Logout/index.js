@@ -3,7 +3,8 @@ import Cookies from "js-cookie"
 
 class Logout extends Component{
     onClickLogout=()=>{
-        Cookies.remove("jwt-token");
+        console.log("clicked logout");
+        Cookies.remove("jwt_token");
     }
 
     render(){

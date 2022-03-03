@@ -29,9 +29,9 @@ class Login extends Component{
         const url = 'http://localhost:3005/login'
         const options = {
         method: 'POST',
-        body: userDetails,
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(userDetails),
         }
-        console.log(options.body);
         const response = await fetch(url, options)
         const data = await response.json()
         if (response.ok === true) {
