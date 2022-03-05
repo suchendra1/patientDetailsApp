@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
-
+import logo from "./logo.png"
 import './index.css'
 
 const Header = () => (
   <nav className="nav-header">
     <div className="record-container">
-      <h1 className="record-title">IDC</h1>
+      <img src={logo} alt="logo" className='logo'/>
       <ul className="nav-menu">
         <Link className="nav-link" to="/">
           <li>Login</li>

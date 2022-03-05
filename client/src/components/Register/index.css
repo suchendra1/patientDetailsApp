@@ -1,16 +1,11 @@
 .register-container{
     display:flex;
     flex-direction:column;
-    padding:10vh 0vw 10vh 5vw;
+    align-self:center;
+    width:50vw;
+    max-width: 500px;
 }
 
-.nav-menu{
-    display:flex;
-    padding: 0.9vh 0.5vw 0.5vh 1vw;
-    margin-left:auto;
-    width:30vw;
-    justify-content:space-between;
-}
 
 ul {
     list-style-type: none;
@@ -21,7 +16,7 @@ li{
 }
 
 .nav-header{
-    background-color: #4d79ff;
+    background-color: #007196;
 }
 
 .nav-link{

@@ -43,11 +43,11 @@ class Login extends Component{
         return(
             <div className="login-container">
                 <h3>Login</h3>
-                <label className="label" htmlFor="id" >ID</label>
+                {/* <label className="label" htmlFor="id" >ID</label> */}
                 <input className="input" type="text" id="id" placeholder="ID" onChange={this.onChangeID}/>
-                <label className="label" htmlFor="password" >Password</label>
+                {/* <label className="label" htmlFor="password" >Password</label> */}
                 <input className="input" type="password" id="password" placeholder="Password" onChange={this.onChangePassword}/>
-                <button type="button" className="submit-button" onClick={this.onClickLogin}>Login</button>
+                <button type="button" className="submit-button bn632-hover bn20" onClick={this.onClickLogin}>Login</button>
             </div>
         )
     }

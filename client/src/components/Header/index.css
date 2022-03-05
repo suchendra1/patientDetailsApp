@@ -4,10 +4,10 @@
 
 .nav-menu{
     display:flex;
-    padding: 0.9vh 0.5vw 0.5vh 1vw;
     margin-left:auto;
     width:30vw;
     justify-content:space-between;
+    align-self:center;
 }
 
 ul {
@@ -19,7 +19,7 @@ li{
 }
 
 .nav-header{
-    background-color: #4d79ff;
+    background-color: #007196;
 }
 
 .nav-link{
@@ -30,4 +30,11 @@ li{
 .record-title{
     color:white;
     padding: 0.5vh 0.5vw 0.5vh 1vw;
+}
+
+.logo{
+    width:150px;
+    margin-left:2vw;
+    margin-top:1vh;
+    margin-bottom:1vh;
 }

@@ -13,7 +13,6 @@ import Cookies from "js-cookie";
 import './App.css'
 
 const isLogged = Cookies.get("jwt_token") !== undefined;
-console.log(isLogged)
 let logComponent = undefined;
 if(!isLogged)
   logComponent = Login;
@@ -24,13 +23,16 @@ const App = () => (
   <div className="container">
     <BrowserRouter>
       <Header />
-      <Switch>
-        <Route exact path="/" component={logComponent} />
-        <Route path="/register" component={Register} />
-        <ProtectedRoute path="/newrecord" component={NewRecord} />
-        <ProtectedRoute path="/showrecord" element={ShowRecord} /> 
-        <Route component={NotFound} />
-      </Switch>
+      <div className='all-container'>
+        <Switch>
+          <Route exact path="/" component={logComponent} />
+          <Route path="/register" component={Register} />
+          <ProtectedRoute path="/newrecord" component={NewRecord} />
+          <ProtectedRoute path="/showrecord" component={ShowRecord} /> 
+          <Route component={NotFound} />
+        </Switch>
+      </div>
+      
     </BrowserRouter>
   </div>
 )

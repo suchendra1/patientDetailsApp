@@ -13,10 +13,10 @@ class NewRecord extends Component{
         PPBS:"",
         RBS:"",
         HbA1C:"",
-        urea:"",
-        creatinine:"",
-        microalbuminuria:"",
-        complaints:"",
+        Urea:"",
+        Creatinine:"",
+        Microalbuminuria:"",
+        Complaints:"",
         file:"",
         OtherSignificantNotes:""
     }
@@ -96,7 +96,6 @@ class NewRecord extends Component{
 
     render (){
         const {mobileNo, name, BP, RBS, FBS, PPBS, HbA1C, Urea, Creatinine, Microalbuminuria, Complaints, OtherSignificantNotes, date, file} = this.state;
-        console.log(date);
         return(
             <div className="newrecord-container">
                 <h2>Please enter your readings</h2>
@@ -128,7 +127,7 @@ class NewRecord extends Component{
                 <input className="input" type="text" id="complaints" placeholder="Complaints" onChange={this.onChangeComplaints} value={Complaints}/>
                 <label className="label" htmlFor="OtherSignificantNotes" >OtherSignificantNotes</label>
                 <input className="input" type="text" id="otherSignificantNotes" placeholder="OtherSignificantNotes" onChange={this.onChangeOtherSignificantNotes} value={OtherSignificantNotes}/>
-                <button type="button" className="submit-button" onClick={this.onClickSubmit}>Submit</button>
+                <button type="button" className="submit-button bn632-hover bn20" onClick={this.onClickSubmit}>Submit</button>
             </div>
         )
     }

@@ -9,9 +9,9 @@ app.use(express.json());
 
 const cors=require("cors");
 const corsOptions ={
-   origin:'*', 
-   credentials:true,            //access-control-allow-credentials:true
-   optionSuccessStatus:200,
+      origin:'*', 
+      credentials:true,            //access-control-allow-credentials:true
+      optionSuccessStatus:200,
 }
 
 app.use(cors(corsOptions))
@@ -109,8 +109,9 @@ app.post("/register" , async (req, res)=>{
 });
 
 app.post("/newrecord",authenticateUser, async (req,res)=>{
-  const {memberid,name,date,mobile,BP,FBS,PPBS,RBS,HbA1C,urea,creatinine,complains,othersignifantnotes} = req.body;
-  const sql = `INSERT INTO medicalhistory (memberid,name,date,mobile,bp,fbs,ppbs,rbs,HbA1c,urea,creatinine,complaints,othersignificantnotes) VALUES ("${memberid}","${name}","${date}","${mobile}","${BP}","${FBS}","${PPBS}","${RBS}","${HbA1C}","${urea}","${creatinine}","${complains}","${othersignifantnotes}");`;
+  const {memberid,name,date,mobileNo,BP,FBS,PPBS,RBS,HbA1C,Urea,Creatinine,Microalbuminuria,Complaints,OtherSignificantNotes} = req.body;
+  console.log(OtherSignificantNotes,Complaints)
+  const sql = `INSERT INTO medicalhistory (memberid,name,date,mobile,bp,fbs,ppbs,rbs,HbA1c,urea,creatinine,Microalbuminuria,complaints,othersignificantnotes) VALUES ("${memberid}","${name}","${date}","${mobileNo}","${BP}","${FBS}","${PPBS}","${RBS}","${HbA1C}","${Urea}","${Creatinine}","${Microalbuminuria}","${Complaints}","${OtherSignificantNotes}");`;
   try{
     await db.run(sql);
     res.status(200);
@@ -127,7 +128,8 @@ app.get("/showrecord",authenticateUser ,async (req, res)=>{
   const {memberid} = req.body;
   const sql = `
     SELECT * FROM medicalhistory
-    WHERE memberid == "${memberid}";`;
+    WHERE memberid == "${memberid}"
+    ORDER BY DATE ASC;`;
   console.log(sql);
   try{
     const records = await db.all(sql);

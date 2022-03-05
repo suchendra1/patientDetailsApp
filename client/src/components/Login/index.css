@@ -1,8 +1,9 @@
 .login-container{
     display:flex;
     flex-direction:column;
-    justify-content:center;
-    padding:10vh 0 10vh 10vw;
+    align-self:center;
+    width:50vw;
+    max-width: 500px;
 }
 
 .label{
@@ -13,17 +14,63 @@
 .input{
     height:4vh;
     align-self:flex-start;
-    width: 25vw;
+    width: 100%;
+    border-style: none none solid none;
+    margin-top:20px;
+}
+
+.input:focus{
+    border-color: #007196;
 }
 
 .submit-button{
     margin-top:20px;
-    background-color:#1a53ff;
+    background-color:#007196;
     align-self:flex-start;
     border-radius:13px;
-    width:70px;
+    width:100%;
     height:40px;
     color: white;
     border:none;
-    margin-left:9vw;
+    margin-top:40px
 }
+
+.bn632-hover {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+  }
+  
+  .bn632-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+  }
+  
+  .bn632-hover:focus {
+    outline: none;
+  }
+  
+  .bn632-hover.bn20 {
+    background-image: linear-gradient(
+      to right,
+      #21d3fd,
+      #6780fe,
+      #914efe,
+      #b523ff
+    );
+    box-shadow: 0 4px 15px 0 #6780fe;
+  }
